@@ -145,10 +145,25 @@
         </Card>
       )
     }
+    function OperationHistory(){
+      return(
+        <Card className="py-10 px-8">
+          <Text as ="h1" variant ="heading" className="mb-4">
+            Historico de operacoes
+          </Text>
+          <ul className="flex flex-col gap-3">
+            <Text as ="li">1 + 1 = 2</Text>
+            <Text as ="li">2 + 1 = 3</Text>
+            <Text as ="li">3 + 1 = 4</Text>
+          </ul>
+        </Card>
+      )
+    }
     function App() {
       return (
-        <main className="py-28 px-4">
+        <main className={`py-28 px-4 sm:px-10 flex flex-col sm:flex-row items-center sm:items-stretch gap-2 justify-center`}>
           <Calculator />
+          <OperationHistory/>
         </main>
       )
     }
