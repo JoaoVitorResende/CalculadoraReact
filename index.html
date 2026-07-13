@@ -144,12 +144,12 @@
       const [operation, setOperation] = React.useState('');
       const [result, setResult] = React.useState('');
       function handleInputClick(input) {
-        if (input == "c") {
+        if (input === "C") {
           setOperation("")
           setResult("")
           return;
         }
-        if (input === "ce") {
+        if (input === "CE") {
           setResult("")
           setOperation(operation.slice(0, -2))
           return;
