@@ -90,7 +90,6 @@
     ];
 
 
-
     function Text({ as = 'span', variant = 'default', className, children, ...props }) {
       return React.createElement(
         as,
@@ -141,7 +140,7 @@
         </div>
       )
     }
-    function Calculator({ setOperationHistory }) {
+    function Calculator() {
       const [operation, setOperation] = React.useState('');
       const [result, setResult] = React.useState('');
       function handleInputClick(input) {
@@ -157,17 +156,12 @@
         }
         if (input === "=") {
           const operationResult = eval(operation.replace(/,/g, "."));
-          const roundedResult = Math.round((operationResult + Number.EPSILON) * 1e10) / 1e10;
-          const parsedResult = roundedResult.toString().replace(".", ",");
-          setResult(parsedResult);
-          setOperationHistory(prev => [
-            ...prev,
-            `${operation} = ${parsedResult}`
-          ]);
+          const parsedResult = operationResult.toString()?.replace(/\./g, ',')
+          setResult(parsedResult)
           return;
         }
         if (result) {
-          setOperation(isNaN(input) ? `${result}${input}` : input)
+          setOperation(isNaN(input)? `${result}${input}`: input)
           setResult("")
           return;
         }
@@ -196,28 +190,25 @@
         </Card>
       )
     }
-    function OperationHistory({ operationHistory }) {
+    function OperationHistory() {
       return (
         <Card className="py-10 px-8">
           <Text as="h1" variant="heading" className="mb-4">
             Historico de operacoes
           </Text>
           <ul className="flex flex-col gap-3">
-            {operationHistory.map((operationHist, index) => (
-              <Text as="li" key={index}>
-                {operationHist}
-              </Text>
-            ))}
+            <Text as="li">1 + 1 = 2</Text>
+            <Text as="li">2 + 1 = 3</Text>
+            <Text as="li">3 + 1 = 4</Text>
           </ul>
         </Card>
       )
     }
     function App() {
-      const [operationHistory, setOperationHistory] = React.useState([]);
       return (
         <main className={`py-28 px-4 sm:px-10 flex flex-col sm:flex-row items-center sm:items-stretch gap-2 justify-center`}>
-         <Calculator setOperationHistory={setOperationHistory} />
-          <OperationHistory operationHistory={operationHistory} />
+          <Calculator />
+          <OperationHistory />
         </main>
       )
     }
